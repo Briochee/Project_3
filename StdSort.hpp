@@ -20,6 +20,6 @@ class StdSort{
         void stdSort(const std::string& header, std::vector<int> data);
 
     private:
-        //container to hold data passed by value
+        //container to hold data for printing
         std::vector<int> data_;
 };
