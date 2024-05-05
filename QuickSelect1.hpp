@@ -24,7 +24,12 @@ class QuickSelect1{
         //QuickSelect1.cpp, containing the function void quickSelect1(const std::string & header, std::vector<int> data)
         void quickSelect1(const std::string& header, std::vector<int> data);
 
+        //helper functions
+        int quickSelect(std::vector<int>& data, int left, int right, int key);
+        int partition(std::vector<int>& data, int left, int right);
+        void insertionSort(std::vector<int>& data);
+
     private:
-        //container to hold data passed by value
-        std::vector<int> data_;
+        //variables to hold min, p25, median, p75, and max
+        int min, p25, median, p75, max;
 };
