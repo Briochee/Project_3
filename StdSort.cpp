@@ -18,7 +18,11 @@ and to give you a baseline to time your other algorithms against.
 
 //constructor
 StdSort::StdSort(){
-
+    min = 0;
+    p25 = 0;
+    median = 0;
+    p75 = 0;
+    max = 0;
 }
 
 //sorting function
@@ -28,50 +32,30 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
     if (data.size() % 2 == 0){
         int median_index = (data.size() - 1)/2;
         //calculating median to be lower of middle value
-        int median = data[median_index];
+        median = data[median_index];
         //calculating 25th percentile to be middle value of lower hald
-        int percentile25 = data[median_index/2];
+        p25 = data[median_index/2];
         //calculating 7th percentile to be middle value of upper half
-        int percentile75 = data[median_index + ((data.size() - median_index)/2)];
-
-       //pushing values into data_
-        //storing min at position 0
-        data_.push_back(data[0]);
-        //storing 25th percentile at position 1
-        data_.push_back(percentile25);
-        //storing 50th percentile at position 2
-        data_.push_back(median);
-        //storing 75th percentile at position 3
-        data_.push_back(percentile75);
-        //storing max at position 4
-        data_.push_back(data[data.size() - 1]);
+        p75 = data[median_index + ((data.size() - median_index)/2)];
     } else {
         int median_index = (data.size())/2;
         //calculating median to be lower of middle value
-        int median = data[median_index];
+        median = data[median_index];
         //calculating 25th percentile to be middle value of lower hald
-        int percentile25 = data[median_index/2];
+        p25 = data[median_index/2];
         //calculating 7th percentile to be middle value of upper half
-        int percentile75 = data[median_index + ((data.size() - median_index)/2)];
-
-        //pushing values into data_
-        //storing min at position 0
-        data_.push_back(data[0]);
-        //storing 25th percentile at position 1
-        data_.push_back(percentile25);
-        //storing 50th percentile at position 2
-        data_.push_back(median);
-        //storing 75th percentile at position 3
-        data_.push_back(percentile75);
-        //storing max at position 4
-        data_.push_back(data[data.size() - 1]);
+        p75 = data[median_index + ((data.size() - median_index)/2)];
     }
+
+    //storing min and max for now sorted vector
+    min = data[0];
+    max = data[data.size() - 1];
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
-    std::cout << "Min: " << data_[0] << std::endl;
-    std::cout << "P25: " << data_[1] << std::endl;
-    std::cout << "P50: " << data_[2] << std::endl;
-    std::cout << "P75: " << data_[3] << std::endl;
-    std::cout << "Max: " << data_[4] << std::endl;
+    std::cout << "Min: " << min << std::endl;
+    std::cout << "P25: " << p25 << std::endl;
+    std::cout << "P50: " << median << std::endl;
+    std::cout << "P75: " << p75 << std::endl;
+    std::cout << "Max: " << max << std::endl;
 }

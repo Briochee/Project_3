@@ -20,6 +20,6 @@ class StdSort{
         void stdSort(const std::string& header, std::vector<int> data);
 
     private:
-        //container to hold data for printing
-        std::vector<int> data_;
+        //variables to hold min, p25, median, p75, and max
+        int min, p25, median, p75, max;
 };
