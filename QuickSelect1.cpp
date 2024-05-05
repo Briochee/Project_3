@@ -96,10 +96,11 @@ int QuickSelect1::partition(std::vector<int>& data, int left, int right){
 }
 
 void QuickSelect1::insertionSort(std::vector<int>& data){
-    for (size_t i = 1; i < data.size(); i++){
+    for (int i = 1; i < data.size(); i++){
         int key = data[i];
         int j = i - 1;
         while (j >= 0 && data[j] > key){
+            //move elements greater than key ahead
             data[j + 1] = data[j];
             j = j - 1;
         }
