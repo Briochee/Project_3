@@ -76,7 +76,7 @@ std::vector<int> QuickSelect2::quickSelect(std::vector<int>& data, int left, int
     //pivot made calling parition
     int pivot = partition(data, left, right);
 
-    //map to store keys and values left of pivot, and right of pivot
+    //vector to store keys and values left of pivot, and right of pivot
     std::vector<int> leftResult, rightResult;
     std::vector<int> leftKeys, rightKeys;
 
