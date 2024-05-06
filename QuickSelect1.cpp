@@ -65,7 +65,7 @@ int QuickSelect1::quickSelect(std::vector<int>& data, int left, int right, int k
         return data[key];
     }
 
-    int pivotIndex = median3(data, left, right);
+    int pivotIndex = partition(data, left, right);
 
     if (key == pivotIndex){
         return data[key];
@@ -75,39 +75,24 @@ int QuickSelect1::quickSelect(std::vector<int>& data, int left, int right, int k
     return quickSelect(data, pivotIndex + 1, right, key);
 }
 
-int QuickSelect1::median3(std::vector<int>& data, int left, int right){
-    int center = data.size() / 2;
-
-    if (data[center] < data[left]){
-        std::swap(data[left], data[center]);
+int QuickSelect1::partition(std::vector<int>& data, int left, int right){
+    //value at the pivot, kth smallest value
+    int pivotValue = data[right];
+    //starting point, index value, not data value
+    int i = left;
+    for (int j = left; j < right; j++){
+        //if data[j] is smaller than pivot value, swap value at front starting point with value at back starting point
+        if (data[j] < pivotValue) {
+            //i     p       j
+            //1 2 3 4 5 6 7 8
+            std::swap(data[j], data[i]);
+            i++;
+        }
     }
-    if (data[right] < data[left]){
-        std::swap(data[left], data[right]);
-    }
-    if (data[right] < data[center]){
-        std::swap(data[center], data[right]);
-    }
-
-    std::swap(data[center], data[right - 1]);
-    return data[right - 1];
     
-    // //value at the pivot, kth smallest value
-    // int pivotValue = data[right];
-    // //starting point, index value, not data value
-    // int i = left;
-    // for (int j = left; j < right; j++){
-    //     //if data[j] is smaller than pivot value, swap value at front starting point with value at back starting point
-    //     if (data[j] < pivotValue) {
-    //         //i     p       j
-    //         //1 2 3 4 5 6 7 8
-    //         std::swap(data[j], data[i]);
-    //         i++;
-    //     }
-    // }
-    
-    // //desired value for pivot point
-    // std::swap(data[i], data[right]);
-    // return i;
+    //desired value for pivot point
+    std::swap(data[i], data[right]);
+    return i;
 }
 
 void QuickSelect1::insertionSort(std::vector<int>& data){
