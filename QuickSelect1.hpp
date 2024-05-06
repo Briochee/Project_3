@@ -26,7 +26,7 @@ class QuickSelect1{
 
         //helper functions
         int quickSelect(std::vector<int>& data, int left, int right, int key);
-        int partition(std::vector<int>& data, int left, int right);
+        int median3(std::vector<int>& data, int left, int right);
         void insertionSort(std::vector<int>& data);
 
     private:
