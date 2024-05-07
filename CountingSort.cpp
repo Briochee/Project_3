@@ -4,6 +4,11 @@
 //Libraries
 #include <vector>
 #include <string>
+#include <unordered_map>
+#include <iostream>
+#include <utility>
+#include <iterator>
+#include <algorithm>
 
 //header file
 #include "CountingSort.hpp"
@@ -25,9 +30,73 @@ be self-explanatory.
 */
 
 //constructor
-CountingSort::CountingSort(){}
+CountingSort::CountingSort(){
+    min = 0;
+    p25 = 0;
+    median = 0;
+    p75 = 0;
+    max = 0;
+}
 
 //sorting function
 void CountingSort::countingSort(const std::string& header, std::vector<int> data){
+    //unordered map for elements from vector, int is key, count is value
+    std::unordered_map<int, int> inital;
 
+    //constructing unordered map
+    for (const int& value : data){
+        if (inital[value] == 0){
+            inital[value] = 1;
+        } else {
+            inital[value]++;
+        }
+    }
+
+    //pushing key value pairs onto a vector
+    std::vector<std::pair<int, int> > keyValue;
+    for (std::unordered_map<int, int>::iterator it = inital.begin(); it != inital.end(); it++){
+        keyValue.push_back(std::make_pair(it->first, it->second));
+    }
+
+    std::sort(keyValue.begin(), keyValue.end(),[](const std::pair<int, int>& a, const std::pair<int, int>& b){return a.first < b.first;});
+
+    //assigning min and max value, does not changed based on count
+    min = keyValue[0].first;
+    max = keyValue[keyValue.size() - 1].first;
+
+    //getting median index from size of input, p25 and p75 index from median index
+    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
+    int p25_index = medianIndex/2;
+    int p75_index = medianIndex + ((data.size() - medianIndex)/2);
+    //using loop to iterate through vector, increment counts, if there is a match, assign correct value
+    //creating counter for unique values that only show up once
+    int current_count = 0, unique = 0;
+    for (const std::pair<int, int>& item : keyValue){
+        current_count += item.second;
+        //checking if count matches with index of 25th percentile element and if p25 has been assigned
+        if (current_count >= p25_index && p25 == 0){
+            p25 = item.first;
+        } else if (current_count >= medianIndex && median == 0){
+            //checking if count matches with index of 50th percentile element and if median has been assigned
+            median = item.first;
+        } else if (current_count >= p75_index && p75 == 0){
+            //checking if count matches with index of 75th percentile element and if p75 has been assigned
+            p75 = item.first;
+            // //end loop, no need to go futher
+            // break;
+        }
+        //if the value has an occurence of only 1, increment unique counter
+        if (item.second == 1){
+            unique++;
+        }
+    }
+
+    //printiing out data as specified by project specifications
+    std::cout << header << std::endl;
+    std::cout << "Min: " << min << std::endl;
+    std::cout << "P25: " << p25 << std::endl;
+    std::cout << "P50: " << median << std::endl;
+    std::cout << "P75: " << p75 << std::endl;
+    std::cout << "Max: " << max << std::endl;
+    std::cout << "Unique: " << unique << std::endl;
 }

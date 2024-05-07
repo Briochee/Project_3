@@ -4,6 +4,7 @@
 //Libraries
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 /* Project Specifications
 Method 4 (counting sort) is the only of these methods that isn't in-place. You'll need to read the integers 
@@ -30,6 +31,6 @@ class CountingSort{
         void countingSort(const std::string& header, std::vector<int> data);
 
     private:
-        //container to hold data passed by value
-        std::vector<int> data_;
+        //variables to hold min, p25, median, p75, and max
+        int min, p25, median, p75, max;
 };
