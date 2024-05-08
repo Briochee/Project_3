@@ -24,67 +24,28 @@ find P25 and on the right half to find P75. Then, search the part of the vector 
 
 //constructor
 QuickSelect1::QuickSelect1(){
-    min = 0;
-    p25 = 0;
-    median = 0;
-    p75 = 0;
-    max = 0;
-}
-
-//sorting function
-void QuickSelect1::quickSelect1(const std::string& header, std::vector<int> data){
-    // //starting timer
-    // auto start2 = std::chrono::high_resolution_clock::now();
-
-    //median index, smaller of the two if even input
-    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
-    median = quickSelect(data, 0, data.size() - 1, medianIndex);
-
-    //second quickSelect for p25
-    int p25_index = medianIndex / 2;
-    p25 = quickSelect(data, 0, medianIndex - 1, p25_index);
-
-    //third quickSelect for p75
-    int p75_index = medianIndex + ((data.size() - medianIndex)/2);
-    p75 = quickSelect(data, medianIndex + 1, data.size() - 1, p75_index);
-
-    //storing min and max for now sorted vector
-    min = data[0];
-    max = data[data.size() - 1];
-
-    // //ending timer
-    // auto end2 = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> duration2 = end2 - start2;
-    // std::cout << "QuickSelect1 Completed in: " << duration2.count() * 1000 << " milliseconds\n\n";
-
-    //printiing out data as specified by project specifications
-    std::cout << header << std::endl;
-    std::cout << "Min: " << min << std::endl;
-    std::cout << "P25: " << p25 << std::endl;
-    std::cout << "P50: " << median << std::endl;
-    std::cout << "P75: " << p75 << std::endl;
-    std::cout << "Max: " << max << std::endl;
+    this->min = 0;
+    this->p25 = 0;
+    this->median = 0;
+    this->p75 = 0;
+    this->max = 0;
 }
 
 //helper functions
-int QuickSelect1::quickSelect(std::vector<int>& data, int left, int right, int key){
-    //if the size is 20 or less, use std::sort and return the value at the key index
-    if (left - right + 1 <= 20){
-        insertionSort(data);
-        return data[key];
+void insertionSort(std::vector<int>& data){
+    for (int i = 1; i < data.size(); i++){
+        int key = data[i];
+        int j = i - 1;
+        while (j >= 0 && data[j] > key){
+            //move elements greater than key ahead
+            data[j + 1] = data[j];
+            j = j - 1;
+        }
+        data[j + 1] = key;
     }
-
-    int pivotIndex = partition(data, left, right);
-
-    if (key == pivotIndex){
-        return data[key];
-    } else if (pivotIndex < key){
-        return quickSelect(data, left, pivotIndex - 1, key);
-    }
-    return quickSelect(data, pivotIndex + 1, right, key);
 }
 
-int QuickSelect1::partition(std::vector<int>& data, int left, int right){
+int partition(std::vector<int>& data, int left, int right){
     //value at the pivot, kth smallest value
     int pivotValue = data[right];
     //starting point, index value, not data value
@@ -104,15 +65,54 @@ int QuickSelect1::partition(std::vector<int>& data, int left, int right){
     return i;
 }
 
-void QuickSelect1::insertionSort(std::vector<int>& data){
-    for (int i = 1; i < data.size(); i++){
-        int key = data[i];
-        int j = i - 1;
-        while (j >= 0 && data[j] > key){
-            //move elements greater than key ahead
-            data[j + 1] = data[j];
-            j = j - 1;
-        }
-        data[j + 1] = key;
+int quickSelect(std::vector<int>& data, int left, int right, int key){
+    //if the size is 20 or less, use std::sort and return the value at the key index
+    if (right - left + 1 <= 20){
+        insertionSort(data);
+        return data[key];
     }
+
+    int pivotIndex = partition(data, left, right);
+
+    if (key == pivotIndex){
+        return data[key];
+    } else if (pivotIndex < key){
+        return quickSelect(data, left, pivotIndex - 1, key);
+    }
+    return quickSelect(data, pivotIndex + 1, right, key);
+}
+
+//sorting function
+void QuickSelect1::quickSelect1(const std::string& header, std::vector<int> data){
+    // //starting timer
+    // auto start2 = std::chrono::high_resolution_clock::now();
+
+    //median index, smaller of the two if even input
+    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
+    this->median = quickSelect(data, 0, data.size() - 1, medianIndex);
+
+    //second quickSelect for p25
+    int p25_index = medianIndex / 2;
+    this->p25 = quickSelect(data, 0, medianIndex - 1, p25_index);
+
+    //third quickSelect for p75
+    int p75_index = medianIndex + ((data.size() - medianIndex)/2);
+    this->p75 = quickSelect(data, medianIndex + 1, data.size() - 1, p75_index);
+
+    //storing min and max for now sorted vector
+    this->min = data[0];
+    this->max = data[data.size() - 1];
+
+    // //ending timer
+    // auto end2 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration2 = end2 - start2;
+    // std::cout << "QuickSelect1 Completed in: " << duration2.count() * 1000 << " milliseconds\n\n";
+
+    //printiing out data as specified by project specifications
+    std::cout << header << std::endl;
+    std::cout << "Min: " << this->min << std::endl;
+    std::cout << "P25: " << this->p25 << std::endl;
+    std::cout << "P50: " << this->median << std::endl;
+    std::cout << "P75: " << this->p75 << std::endl;
+    std::cout << "Max: " << this->max << std::endl;
 }

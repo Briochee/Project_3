@@ -1,9 +1,14 @@
+#ifndef QUICKSELECT1_HPP
+#define QUICKSELECT1_HPP
+
 //Name: Rio Simpson
 //Description: Header file for QuickSelect1 class
 
 //Libraries
 #include <vector>
 #include <string>
+#include <iostream>
+#include <algorithm>
 
 /* Project Specifications
 For method 2, using quickSelect 3 times, the idea is simple: call quickSelect on the entire input with the middle of the vector as the key, k. 
@@ -16,7 +21,7 @@ For method 2, find the median first. Then, on the same vector that's already par
 find P25 and on the right half to find P75. Then, search the part of the vector below P25 for the min and above P75 for the max.
 */
 
-class QuickSelect1{
+class QuickSelect1 {
     public:
         //constructor
         QuickSelect1();
@@ -24,12 +29,14 @@ class QuickSelect1{
         //QuickSelect1.cpp, containing the function void quickSelect1(const std::string & header, std::vector<int> data)
         void quickSelect1(const std::string& header, std::vector<int> data);
 
-        //helper functions
-        int quickSelect(std::vector<int>& data, int left, int right, int key);
-        int partition(std::vector<int>& data, int left, int right);
-        void insertionSort(std::vector<int>& data);
+        //helper functions -- made non member so gradescope could see
+        // int quickSelect(std::vector<int>& data, int left, int right, int key);
+        // int partition(std::vector<int>& data, int left, int right);
+        // void insertionSort(std::vector<int>& data);
 
     private:
         //variables to hold min, p25, median, p75, and max
         int min, p25, median, p75, max;
 };
+
+#endif

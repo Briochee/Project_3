@@ -18,7 +18,7 @@
 
 int main(){
     //extracting data from text flile
-    std::ifstream input_data("test_input_10M_3-1000.txt");
+    std::ifstream input_data("inputs/test_input.txt");
     std::vector<int> read_data;
 
     //throw away introductory line

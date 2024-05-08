@@ -26,10 +26,10 @@ class QuickSelect2{
 
         //QuickSelect2.cpp, containing the function void quickSelect2(const std::string & header, std::vector<int> data)
         void quickSelect2(const std::string& header, std::vector<int> data);
-        //helper functions
-        std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys);
-        int partition(std::vector<int>& data, int left, int right);
-        void insertionSort(std::vector<int>& data);
+        //helper functions -- made non member so gradescope could see
+        // std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys);
+        // int partition(std::vector<int>& data, int left, int right);
+        // void insertionSort(std::vector<int>& data);
 
     private:
         //not needed for quickselect 2 since indexes are stored in vector

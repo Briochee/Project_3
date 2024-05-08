@@ -34,46 +34,45 @@ QuickSelect2::QuickSelect2(){
     // max = 0;
 }
 
-//sorting function
-void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data){
-    // //starting timer
-    // auto start3 = std::chrono::high_resolution_clock::now();
-
-    //median index, smaller of the two if even input
-    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
-
-    //second quickSelect for p25
-    int p25_index = (medianIndex % 2 == 0) ? (medianIndex / 2) - 1 : medianIndex / 2;
-
-    //third quickSelect for p75
-    int p75_index = (medianIndex % 2 == 0) ? (medianIndex + ((data.size() - medianIndex)/2)) - 1 : medianIndex + ((data.size() - medianIndex)/2);
-
-    //storing min at position 0, p25 at position 1, median at position 2, p75 at position 3, max at position 4
-    std::vector<int> keys{0, p25_index, medianIndex, p75_index, static_cast<int>(data.size() - 1)};
-
-    //calling quickselect
-    std::vector<int> result = quickSelect(data, 0, data.size() - 1, keys);
-    
-    // //ending timer
-    // auto end3 = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> duration3 = end3 - start3;
-    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n\n";
-
-    //printiing out data as specified by project specifications
-    std::cout << header << std::endl;
-    std::cout << "Min: " << result[0] << std::endl;
-    std::cout << "P25: " << result[1] << std::endl;
-    std::cout << "P50: " << result[2] << std::endl;
-    std::cout << "P75: " << result[3] << std::endl;
-    std::cout << "Max: " << result[4] << std::endl;
+//helper functions
+void insertionSort2(std::vector<int>& data){
+    for (int i = 1; i < data.size(); i++){
+        int key = data[i];
+        int j = i - 1;
+        while (j >= 0 && data[j] > key){
+            //move elements greater than key ahead
+            data[j + 1] = data[j];
+            j = j - 1;
+        }
+        data[j + 1] = key;
+    }
 }
 
-//helper functions
-std::vector<int> QuickSelect2::quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys){
+int partition2(std::vector<int>& data, int left, int right){
+    //value at the pivot, kth smallest value
+    int pivotValue = data[right];
+    //starting point, index value, not data value
+    int i = left;
+    for (int j = left; j < right; j++){
+        //if data[j] is smaller than pivot value, swap value at front starting point with value at back starting point
+        if (data[j] < pivotValue) {
+            //i     p       j
+            //1 2 3 4 5 6 7 8
+            std::swap(data[j], data[i]);
+            i++;
+        }
+    }
+    
+    //desired value for pivot point
+    std::swap(data[i], data[right]);
+    return i;
+}
+
+std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys){
     std::vector<int> result;
     //for each value matched with its appropritate key, add to map and return
     if (left - right + 1 <= 20){
-        insertionSort(data);
+        insertionSort2(data);
         for (int key : keys) {
             if (key >= left && key <= right) {
                 result.push_back(data[key]);
@@ -83,7 +82,7 @@ std::vector<int> QuickSelect2::quickSelect(std::vector<int>& data, int left, int
     }
 
     //pivot made calling parition
-    int pivot = partition(data, left, right);
+    int pivot = partition2(data, left, right);
 
     //vector to store keys and values left of pivot, and right of pivot
     std::vector<int> leftResult, rightResult;
@@ -120,35 +119,36 @@ std::vector<int> QuickSelect2::quickSelect(std::vector<int>& data, int left, int
     return result;
 }
 
-int QuickSelect2::partition(std::vector<int>& data, int left, int right){
-    //value at the pivot, kth smallest value
-    int pivotValue = data[right];
-    //starting point, index value, not data value
-    int i = left;
-    for (int j = left; j < right; j++){
-        //if data[j] is smaller than pivot value, swap value at front starting point with value at back starting point
-        if (data[j] < pivotValue) {
-            //i     p       j
-            //1 2 3 4 5 6 7 8
-            std::swap(data[j], data[i]);
-            i++;
-        }
-    }
-    
-    //desired value for pivot point
-    std::swap(data[i], data[right]);
-    return i;
-}
+//sorting function
+void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data){
+    // //starting timer
+    // auto start3 = std::chrono::high_resolution_clock::now();
 
-void QuickSelect2::insertionSort(std::vector<int>& data){
-    for (int i = 1; i < data.size(); i++){
-        int key = data[i];
-        int j = i - 1;
-        while (j >= 0 && data[j] > key){
-            //move elements greater than key ahead
-            data[j + 1] = data[j];
-            j = j - 1;
-        }
-        data[j + 1] = key;
-    }
+    //median index, smaller of the two if even input
+    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
+
+    //second quickSelect for p25
+    int p25_index = (medianIndex % 2 == 0) ? (medianIndex / 2) - 1 : medianIndex / 2;
+
+    //third quickSelect for p75
+    int p75_index = (medianIndex % 2 == 0) ? (medianIndex + ((data.size() - medianIndex)/2)) - 1 : medianIndex + ((data.size() - medianIndex)/2);
+
+    //storing min at position 0, p25 at position 1, median at position 2, p75 at position 3, max at position 4
+    std::vector<int> keys{0, p25_index, medianIndex, p75_index, static_cast<int>(data.size() - 1)};
+
+    //calling quickselect
+    std::vector<int> result = quickSelect(data, 0, data.size() - 1, keys);
+    
+    // //ending timer
+    // auto end3 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration3 = end3 - start3;
+    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n\n";
+
+    //printiing out data as specified by project specifications
+    std::cout << header << std::endl;
+    std::cout << "Min: " << result[0] << std::endl;
+    std::cout << "P25: " << result[1] << std::endl;
+    std::cout << "P50: " << result[2] << std::endl;
+    std::cout << "P75: " << result[3] << std::endl;
+    std::cout << "Max: " << result[4] << std::endl;
 }
