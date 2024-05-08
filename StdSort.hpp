@@ -1,3 +1,6 @@
+#ifndef STDSORT_HPP
+#define STDSORT_HPP
+
 //Name: Rio Simpson
 //Description: Header file for StdSort class
 
@@ -23,3 +26,5 @@ class StdSort{
         //variables to hold min, p25, median, p75, and max
         int min, p25, median, p75, max;
 };
+
+#endif

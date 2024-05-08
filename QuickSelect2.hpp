@@ -1,3 +1,6 @@
+#ifndef QUICKSELECT2_HPP
+#define QUICKSELECT2_HPP
+
 //Name: Rio Simpson
 //Description: Header file for QuickSelect2 class
 
@@ -36,3 +39,5 @@ class QuickSelect2{
         //variables to hold min, p25, median, p75, and max
         //int min, p25, median, p75, max;
 };
+
+#endif
