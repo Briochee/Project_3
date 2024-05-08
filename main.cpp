@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <chrono>
 
 //Header Files
 #include "StdSort.hpp"
@@ -17,12 +18,12 @@
 
 int main(){
     //extracting data from text flile
-    std::ifstream input_data("test_input.txt");
+    std::ifstream input_data("test_input_10M_3-1000.txt");
     std::vector<int> read_data;
 
     //throw away introductory line
-    std::string throwAway;
-    std::getline(input_data, throwAway);
+    std::string header;
+    std::getline(input_data, header);
 
     if (input_data.is_open()) {
         int value;
@@ -33,4 +34,19 @@ int main(){
         input_data.close();
     }
 
+    StdSort myData1;
+    //calling function
+    myData1.stdSort(header, read_data);
+
+    QuickSelect1 myData2;
+    //calling function
+    myData2.quickSelect1(header, read_data);
+
+    QuickSelect2 myData3;
+    //calling function
+    myData3.quickSelect2(header, read_data);
+
+    CountingSort myData4;
+    //calling function
+    myData4.countingSort(header, read_data);
 }
