@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 
 //header file
 #include "QuickSelect1.hpp"
@@ -32,6 +33,8 @@ QuickSelect1::QuickSelect1(){
 
 //sorting function
 void QuickSelect1::quickSelect1(const std::string& header, std::vector<int> data){
+    //starting timer
+    auto start2 = std::chrono::high_resolution_clock::now();
     //median index, smaller of the two if even input
     int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
     median = quickSelect(data, 0, data.size() - 1, medianIndex);
@@ -48,6 +51,11 @@ void QuickSelect1::quickSelect1(const std::string& header, std::vector<int> data
     min = data[0];
     max = data[data.size() - 1];
 
+    //ending timer
+    auto end2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration2 = end2 - start2;
+    std::cout << "QuickSelect1 Completed in: " << duration2.count() * 1000 << " milliseconds\n\n";
+
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
     std::cout << "Min: " << min << std::endl;
@@ -60,7 +68,7 @@ void QuickSelect1::quickSelect1(const std::string& header, std::vector<int> data
 //helper functions
 int QuickSelect1::quickSelect(std::vector<int>& data, int left, int right, int key){
     //if the size is 20 or less, use std::sort and return the value at the key index
-    if (right - left + 1 <= 20){
+    if (data.size() <= 20){
         insertionSort(data);
         return data[key];
     }

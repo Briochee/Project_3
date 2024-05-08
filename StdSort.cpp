@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <chrono>
 
 //header file
 #include "StdSort.hpp"
@@ -27,6 +28,9 @@ StdSort::StdSort(){
 
 //sorting function
 void StdSort::stdSort(const std::string& header, std::vector<int> data){
+    //starting timer
+    auto start1 = std::chrono::high_resolution_clock::now();
+
     //using std::sort
     std::sort(data.begin(), data.end());
     if (data.size() % 2 == 0){
@@ -50,6 +54,11 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
     //storing min and max for now sorted vector
     min = data[0];
     max = data[data.size() - 1];
+
+    //ending timer
+    auto end1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration1 = end1 - start1;
+    std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
