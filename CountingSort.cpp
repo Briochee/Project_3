@@ -32,11 +32,11 @@ be self-explanatory.
 
 //constructor
 CountingSort::CountingSort(){
-    min = 0;
-    p25 = 0;
-    median = 0;
-    p75 = 0;
-    max = 0;
+    this->min = 0;
+    this->p25 = 0;
+    this->median = 0;
+    this->p75 = 0;
+    this->max = 0;
 }
 
 //sorting function
@@ -65,8 +65,8 @@ void CountingSort::countingSort(const std::string& header, std::vector<int> data
     std::sort(keyValue.begin(), keyValue.end(),[](const std::pair<int, int>& a, const std::pair<int, int>& b){return a.first < b.first;});
 
     //assigning min and max value, does not changed based on count
-    min = keyValue[0].first;
-    max = keyValue[keyValue.size() - 1].first;
+    this->min = keyValue[0].first;
+    this->max = keyValue[keyValue.size() - 1].first;
 
     //getting median index from size of input, p25 and p75 index from median index
     int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
@@ -78,14 +78,14 @@ void CountingSort::countingSort(const std::string& header, std::vector<int> data
     for (const std::pair<int, int>& item : keyValue){
         current_count += item.second;
         //checking if count matches with index of 25th percentile element and if p25 has been assigned
-        if (current_count >= p25_index && p25 == 0){
-            p25 = item.first;
-        } else if (current_count >= medianIndex && median == 0){
+        if (current_count >= p25_index && this->p25 == 0){
+            this->p25 = item.first;
+        } else if (current_count >= medianIndex && this->median == 0){
             //checking if count matches with index of 50th percentile element and if median has been assigned
-            median = item.first;
-        } else if (current_count >= p75_index && p75 == 0){
+            this->median = item.first;
+        } else if (current_count >= p75_index && this->p75 == 0){
             //checking if count matches with index of 75th percentile element and if p75 has been assigned
-            p75 = item.first;
+            this->p75 = item.first;
             // //end loop, no need to go futher
             // break;
         }
@@ -102,10 +102,10 @@ void CountingSort::countingSort(const std::string& header, std::vector<int> data
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
-    std::cout << "Min: " << min << std::endl;
-    std::cout << "P25: " << p25 << std::endl;
-    std::cout << "P50: " << median << std::endl;
-    std::cout << "P75: " << p75 << std::endl;
-    std::cout << "Max: " << max << std::endl;
+    std::cout << "Min: " << this->min << std::endl;
+    std::cout << "P25: " << this->p25 << std::endl;
+    std::cout << "P50: " << this->median << std::endl;
+    std::cout << "P75: " << this->p75 << std::endl;
+    std::cout << "Max: " << this->max << std::endl;
     std::cout << "Unique: " << unique << std::endl;
 }

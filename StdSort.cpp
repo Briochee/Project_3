@@ -19,11 +19,11 @@ and to give you a baseline to time your other algorithms against.
 
 //constructor
 StdSort::StdSort(){
-    min = 0;
-    p25 = 0;
-    median = 0;
-    p75 = 0;
-    max = 0;
+    this->min = 0;
+    this->p25 = 0;
+    this->median = 0;
+    this->p75 = 0;
+    this->max = 0;
 }
 
 //sorting function
@@ -36,19 +36,19 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
     if (data.size() % 2 == 0){
         int median_index = (data.size() - 1)/2;
         //calculating median to be lower of middle value
-        median = data[median_index];
+        this->median = data[median_index];
         //calculating 25th percentile to be middle value of lower hald
-        p25 = data[median_index/2];
-        //calculating 7th percentile to be middle value of upper half
-        p75 = data[median_index + ((data.size() - median_index)/2)];
+        this->p25 = data[median_index/2];
+        //calculating 75th percentile to be middle value of upper half
+        this->p75 = data[median_index + ((data.size() - median_index)/2)];
     } else {
         int median_index = (data.size())/2;
         //calculating median to be lower of middle value
-        median = data[median_index];
+        this->median = data[median_index];
         //calculating 25th percentile to be middle value of lower hald
-        p25 = data[median_index/2];
-        //calculating 7th percentile to be middle value of upper half
-        p75 = data[median_index + ((data.size() - median_index)/2)];
+        this->p25 = data[median_index/2];
+        //calculating 75th percentile to be middle value of upper half
+        this->p75 = data[median_index + ((data.size() - median_index)/2)];
     }
 
     //storing min and max for now sorted vector
@@ -62,9 +62,9 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
-    std::cout << "Min: " << min << std::endl;
-    std::cout << "P25: " << p25 << std::endl;
-    std::cout << "P50: " << median << std::endl;
-    std::cout << "P75: " << p75 << std::endl;
-    std::cout << "Max: " << max << std::endl;
+    std::cout << "Min: " << this->min << std::endl;
+    std::cout << "P25: " << this->p25 << std::endl;
+    std::cout << "P50: " << this->median << std::endl;
+    std::cout << "P75: " << this->p75 << std::endl;
+    std::cout << "Max: " << this->max << std::endl;
 }
