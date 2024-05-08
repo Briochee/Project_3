@@ -1,3 +1,6 @@
+#ifndef COUNTINGSORT_HPP
+#define COUNTINGSORT_HPP
+
 //Name: Rio Simpson
 //Description: Header file for CountingSort class
 
@@ -34,3 +37,5 @@ class CountingSort{
         //variables to hold min, p25, median, p75, and max
         int min, p25, median, p75, max;
 };
+
+#endif
