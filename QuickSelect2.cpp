@@ -36,8 +36,8 @@ QuickSelect2::QuickSelect2(){
 
 //sorting function
 void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data){
-    //starting timer
-    auto start3 = std::chrono::high_resolution_clock::now();
+    // //starting timer
+    // auto start3 = std::chrono::high_resolution_clock::now();
 
     //median index, smaller of the two if even input
     int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
@@ -54,10 +54,10 @@ void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data
     //calling quickselect
     std::vector<int> result = quickSelect(data, 0, data.size() - 1, keys);
     
-    //ending timer
-    auto end3 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration3 = end3 - start3;
-    std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n\n";
+    // //ending timer
+    // auto end3 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration3 = end3 - start3;
+    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;

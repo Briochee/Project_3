@@ -28,8 +28,8 @@ StdSort::StdSort(){
 
 //sorting function
 void StdSort::stdSort(const std::string& header, std::vector<int> data){
-    //starting timer
-    auto start1 = std::chrono::high_resolution_clock::now();
+    // //starting timer
+    // auto start1 = std::chrono::high_resolution_clock::now();
 
     //using std::sort
     std::sort(data.begin(), data.end());
@@ -55,10 +55,10 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
     min = data[0];
     max = data[data.size() - 1];
 
-    //ending timer
-    auto end1 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration1 = end1 - start1;
-    std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n\n";
+    // //ending timer
+    // auto end1 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration1 = end1 - start1;
+    // std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;

@@ -41,8 +41,8 @@ CountingSort::CountingSort(){
 
 //sorting function
 void CountingSort::countingSort(const std::string& header, std::vector<int> data){
-    //starting timer
-    auto start4 = std::chrono::high_resolution_clock::now();
+    // //starting timer
+    // auto start4 = std::chrono::high_resolution_clock::now();
 
     //unordered map for elements from vector, int is key, count is value
     std::unordered_map<int, int> inital;
@@ -95,10 +95,10 @@ void CountingSort::countingSort(const std::string& header, std::vector<int> data
         }
     }
     
-    //ending timer
-    auto end4 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration4 = end4 - start4;
-    std::cout << "CountingSort Completed in: " << duration4.count() * 1000 << " milliseconds\n\n";
+    // //ending timer
+    // auto end4 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration4 = end4 - start4;
+    // std::cout << "CountingSort Completed in: " << duration4.count() * 1000 << " milliseconds\n\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
