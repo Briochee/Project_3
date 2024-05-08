@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include <chrono>
+// #include <chrono>
 
 //header file
 #include "QuickSelect1.hpp"
@@ -69,7 +69,7 @@ void QuickSelect1::quickSelect1(const std::string& header, std::vector<int> data
 //helper functions
 int QuickSelect1::quickSelect(std::vector<int>& data, int left, int right, int key){
     //if the size is 20 or less, use std::sort and return the value at the key index
-    if (data.size() <= 20){
+    if (left - right + 1 <= 20){
         insertionSort(data);
         return data[key];
     }

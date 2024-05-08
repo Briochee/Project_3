@@ -6,7 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <iostream>
-#include <chrono>
+// #include <chrono>
 
 //header file
 #include "QuickSelect2.hpp"
@@ -43,10 +43,10 @@ void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data
     int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
 
     //second quickSelect for p25
-    int p25_index = medianIndex / 2;
+    int p25_index = (medianIndex % 2 == 0) ? (medianIndex / 2) - 1 : medianIndex / 2;
 
     //third quickSelect for p75
-    int p75_index = medianIndex + ((data.size() - medianIndex)/2);
+    int p75_index = (medianIndex % 2 == 0) ? (medianIndex + ((data.size() - medianIndex)/2)) - 1 : medianIndex + ((data.size() - medianIndex)/2);
 
     //storing min at position 0, p25 at position 1, median at position 2, p75 at position 3, max at position 4
     std::vector<int> keys{0, p25_index, medianIndex, p75_index, static_cast<int>(data.size() - 1)};
@@ -72,7 +72,7 @@ void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data
 std::vector<int> QuickSelect2::quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys){
     std::vector<int> result;
     //for each value matched with its appropritate key, add to map and return
-    if (data.size() <= 20){
+    if (left - right + 1 <= 20){
         insertionSort(data);
         for (int key : keys) {
             if (key >= left && key <= right) {
