@@ -30,38 +30,14 @@ the way, since each element of the vector represents multiple data point, not ju
 be self-explanatory.
 */
 
-//constructor
-// CountingSort::CountingSort(){
-//     this->min = 0;
-//     this->p25 = 0;
-//     this->median = 0;
-//     this->p75 = 0;
-//     this->max = 0;
-// }
-
-// //helper function to verify unique elements
-// int countUniqueElements(const std::vector<int>& data){
-//     std::unordered_map<int, int> uniques;
-//     for (int element : data) {
-//         uniques[element]++;
-//     }
-
-//     int count = 0;
-//     for (const auto& pair : uniques) {
-//         if (pair.second == 1) {
-//             count++;
-//         }
-//     }
-//     return count;
-// }
-
 //sorting function
+//function takes string and data vector, creates map, finds 5-summary values
 void countingSort(const std::string& header, std::vector<int> data){
-    //variables to hold min, p25, median, p75, and max
-    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
-
     // //starting timer
     // auto start4 = std::chrono::high_resolution_clock::now();
+
+    //variables to hold min, p25, median, p75, and max
+    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
 
     //unordered map for elements from vector, int is key, count is value
     std::unordered_map<int, int> inital;
@@ -110,9 +86,6 @@ void countingSort(const std::string& header, std::vector<int> data){
             // break;
         }
 
-        // if (item.second == 1){
-        //     unique++;
-        // }
     }
     
     //NOTE TO GRADER: unique values should be the number of elements that only occur once, not the number of elements as some occur multiple times (thus not being unique)
@@ -131,5 +104,4 @@ void countingSort(const std::string& header, std::vector<int> data){
     std::cout << "P75: " << p75 << std::endl;
     std::cout << "Max: " << max << std::endl;
     std::cout << "Unique: " << unique << std::endl;
-    // std::cout << "Unique check: " << countUniqueElements(data) << std::endl;
 }
