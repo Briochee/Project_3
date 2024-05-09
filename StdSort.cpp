@@ -17,23 +17,13 @@ This is to ensure that you have the correct answer and are printing correctly,
 and to give you a baseline to time your other algorithms against.
 */
 
-//commenting out class implementation
-// //constructor
-// StdSort::StdSort(){
-//     this->min = 0;
-//     this->p25 = 0;
-//     this->median = 0;
-//     this->p75 = 0;
-//     this->max = 0;
-// }
-
 //sorting function
 void stdSort(const std::string& header, std::vector<int> data){
-    //variables to hold min, p25, median, p75, and max
-    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
-
     // //starting timer
     // auto start1 = std::chrono::high_resolution_clock::now();
+
+    //variables to hold min, p25, median, p75, and max
+    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
 
     //using std::sort
     std::sort(data.begin(), data.end());
