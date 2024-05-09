@@ -25,17 +25,18 @@ the way, since each element of the vector represents multiple data point, not ju
 be self-explanatory.
 */
 
-class CountingSort{
-    public:
-        //constructor
-        CountingSort();
+//commented out class implementation
+// class CountingSort{
+//     public:
+//         //constructor
+//         CountingSort();
 
-        //CountingSort.cpp, containing the function void CountingSort(const std::string & header, std::vector<int> data)
-        void countingSort(const std::string& header, std::vector<int> data);
+//CountingSort.cpp, containing the function void CountingSort(const std::string & header, std::vector<int> data)
+void countingSort(const std::string& header, std::vector<int> data);
 
-    private:
-        //variables to hold min, p25, median, p75, and max
-        int min, p25, median, p75, max;
-};
+//     private:
+//         //variables to hold min, p25, median, p75, and max
+//         int min, p25, median, p75, max;
+// };
 
 #endif

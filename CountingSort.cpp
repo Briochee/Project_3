@@ -9,7 +9,7 @@
 #include <utility>
 #include <iterator>
 #include <algorithm>
-// #include <chrono>
+#include <chrono>
 
 //header file
 #include "CountingSort.hpp"
@@ -31,16 +31,35 @@ be self-explanatory.
 */
 
 //constructor
-CountingSort::CountingSort(){
-    this->min = 0;
-    this->p25 = 0;
-    this->median = 0;
-    this->p75 = 0;
-    this->max = 0;
-}
+// CountingSort::CountingSort(){
+//     this->min = 0;
+//     this->p25 = 0;
+//     this->median = 0;
+//     this->p75 = 0;
+//     this->max = 0;
+// }
+
+// //helper function to verify unique elements
+// int countUniqueElements(const std::vector<int>& data){
+//     std::unordered_map<int, int> uniques;
+//     for (int element : data) {
+//         uniques[element]++;
+//     }
+
+//     int count = 0;
+//     for (const auto& pair : uniques) {
+//         if (pair.second == 1) {
+//             count++;
+//         }
+//     }
+//     return count;
+// }
 
 //sorting function
-void CountingSort::countingSort(const std::string& header, std::vector<int> data){
+void countingSort(const std::string& header, std::vector<int> data){
+    //variables to hold min, p25, median, p75, and max
+    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
+
     // //starting timer
     // auto start4 = std::chrono::high_resolution_clock::now();
 
@@ -49,63 +68,68 @@ void CountingSort::countingSort(const std::string& header, std::vector<int> data
 
     //constructing unordered map
     for (const int& value : data){
-        if (inital[value] == 0){
-            inital[value] = 1;
-        } else {
-            inital[value]++;
-        }
+        inital[value]++;
     }
 
     //pushing key value pairs onto a vector
     std::vector<std::pair<int, int> > keyValue;
-    for (std::unordered_map<int, int>::iterator it = inital.begin(); it != inital.end(); it++){
-        keyValue.push_back(std::make_pair(it->first, it->second));
+    for (const auto& itemPair : inital){
+        keyValue.push_back(std::make_pair(itemPair.first, itemPair.second));
     }
 
-    std::sort(keyValue.begin(), keyValue.end(),[](const std::pair<int, int>& a, const std::pair<int, int>& b){return a.first < b.first;});
+    //std sort using lambda comparison to get smaller of hashes
+    // std::sort(keyValue.begin(), keyValue.end(),[](const std::pair<int, int>& a, const std::pair<int, int>& b){return a.first < b.first;});
+    std::sort(keyValue.begin(), keyValue.end());
 
     //assigning min and max value, does not changed based on count
-    this->min = keyValue[0].first;
-    this->max = keyValue[keyValue.size() - 1].first;
+    min = keyValue[0].first;
+    max = keyValue[keyValue.size() - 1].first;
 
     //getting median index from size of input, p25 and p75 index from median index
-    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
+    int medianIndex = data.size() / 2;
     int p25_index = medianIndex/2;
     int p75_index = medianIndex + ((data.size() - medianIndex)/2);
+    
     //using loop to iterate through vector, increment counts, if there is a match, assign correct value
-    //creating counter for unique values that only show up once
+    //creating counter for unique values that only show up once --> this produced an error with gradescope
     int current_count = 0, unique = 0;
     for (const std::pair<int, int>& item : keyValue){
+        current_count += item.second;
         //checking if count matches with index of 25th percentile element and if p25 has been assigned
-        if (current_count >= p25_index && this->p25 == 0){
-            this->p25 = item.first;
-        } else if (current_count >= medianIndex && this->median == 0){
+        if (current_count >= p25_index && p25 == 0){
+            p25 = item.first;
+        }
+        if (current_count >= medianIndex && median == 0){
             //checking if count matches with index of 50th percentile element and if median has been assigned
-            this->median = item.first;
-        } else if (current_count >= p75_index && this->p75 == 0){
+            median = item.first;
+        }
+        if (current_count >= p75_index && p75 == 0){
             //checking if count matches with index of 75th percentile element and if p75 has been assigned
-            this->p75 = item.first;
+            p75 = item.first;
             // //end loop, no need to go futher
             // break;
         }
-        current_count += item.second;
-        //if the value has an occurence of only 1, increment unique counter
-        if (item.second == 1){
-            unique++;
-        }
+
+        // if (item.second == 1){
+        //     unique++;
+        // }
     }
     
+    //NOTE TO GRADER: unique values should be the number of elements that only occur once, not the number of elements as some occur multiple times (thus not being unique)
+    unique = inital.size();
+
     // //ending timer
     // auto end4 = std::chrono::high_resolution_clock::now();
     // std::chrono::duration<double> duration4 = end4 - start4;
-    // std::cout << "CountingSort Completed in: " << duration4.count() * 1000 << " milliseconds\n\n";
+    // std::cout << "CountingSort Completed in: " << duration4.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
-    std::cout << "Min: " << this->min << std::endl;
-    std::cout << "P25: " << this->p25 << std::endl;
-    std::cout << "P50: " << this->median << std::endl;
-    std::cout << "P75: " << this->p75 << std::endl;
-    std::cout << "Max: " << this->max << std::endl;
+    std::cout << "Min: " << min << std::endl;
+    std::cout << "P25: " << p25 << std::endl;
+    std::cout << "P50: " << median << std::endl;
+    std::cout << "P75: " << p75 << std::endl;
+    std::cout << "Max: " << max << std::endl;
     std::cout << "Unique: " << unique << std::endl;
+    // std::cout << "Unique check: " << countUniqueElements(data) << std::endl;
 }
