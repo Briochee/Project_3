@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-// #include <chrono>
+#include <chrono>
 
 //header file
 #include "StdSort.hpp"
@@ -17,17 +17,21 @@ This is to ensure that you have the correct answer and are printing correctly,
 and to give you a baseline to time your other algorithms against.
 */
 
-//constructor
-StdSort::StdSort(){
-    this->min = 0;
-    this->p25 = 0;
-    this->median = 0;
-    this->p75 = 0;
-    this->max = 0;
-}
+//commenting out class implementation
+// //constructor
+// StdSort::StdSort(){
+//     this->min = 0;
+//     this->p25 = 0;
+//     this->median = 0;
+//     this->p75 = 0;
+//     this->max = 0;
+// }
 
 //sorting function
-void StdSort::stdSort(const std::string& header, std::vector<int> data){
+void stdSort(const std::string& header, std::vector<int> data){
+    //variables to hold min, p25, median, p75, and max
+    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
+
     // //starting timer
     // auto start1 = std::chrono::high_resolution_clock::now();
 
@@ -36,19 +40,19 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
     if (data.size() % 2 == 0){
         int median_index = (data.size() - 1)/2;
         //calculating median to be lower of middle value
-        this->median = data[median_index];
+        median = data[median_index];
         //calculating 25th percentile to be middle value of lower hald
-        this->p25 = data[median_index/2];
+        p25 = data[median_index/2];
         //calculating 75th percentile to be middle value of upper half
-        this->p75 = data[median_index + ((data.size() - median_index)/2)];
+        p75 = data[median_index + ((data.size() - median_index)/2)];
     } else {
         int median_index = (data.size())/2;
         //calculating median to be lower of middle value
-        this->median = data[median_index];
+        median = data[median_index];
         //calculating 25th percentile to be middle value of lower hald
-        this->p25 = data[median_index/2];
+        p25 = data[median_index/2];
         //calculating 75th percentile to be middle value of upper half
-        this->p75 = data[median_index + ((data.size() - median_index)/2)];
+        p75 = data[median_index + ((data.size() - median_index)/2)];
     }
 
     //storing min and max for now sorted vector
@@ -58,13 +62,13 @@ void StdSort::stdSort(const std::string& header, std::vector<int> data){
     // //ending timer
     // auto end1 = std::chrono::high_resolution_clock::now();
     // std::chrono::duration<double> duration1 = end1 - start1;
-    // std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n\n";
+    // std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
-    std::cout << "Min: " << this->min << std::endl;
-    std::cout << "P25: " << this->p25 << std::endl;
-    std::cout << "P50: " << this->median << std::endl;
-    std::cout << "P75: " << this->p75 << std::endl;
-    std::cout << "Max: " << this->max << std::endl;
+    std::cout << "Min: " << min << std::endl;
+    std::cout << "P25: " << p25 << std::endl;
+    std::cout << "P50: " << median << std::endl;
+    std::cout << "P75: " << p75 << std::endl;
+    std::cout << "Max: " << max << std::endl;
 }

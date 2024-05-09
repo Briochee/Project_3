@@ -16,17 +16,18 @@ This is to ensure that you have the correct answer and are printing correctly,
 and to give you a baseline to time your other algorithms against.
 */
 
-class StdSort {
-    public:
-        //constructor
-        StdSort();
+// class StdSort {
+//     public:
+//         //constructor
+//         StdSort();
 
-        //StdSort.cpp, containing the function void stdSort (const std::string & header, std::vector<int> data)
-        void stdSort(const std::string& header, std::vector<int> data);
+//commented out class implementation
+//StdSort.cpp, containing the function void stdSort (const std::string & header, std::vector<int> data)
+void stdSort(const std::string& header, std::vector<int> data);
 
-    private:
-        //variables to hold min, p25, median, p75, and max
-        int min, p25, median, p75, max;
-};
+//     private:
+//         //variables to hold min, p25, median, p75, and max
+//         int min, p25, median, p75, max;
+// };
 
 #endif
