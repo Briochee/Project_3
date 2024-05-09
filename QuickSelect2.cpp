@@ -6,7 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <iostream>
-// #include <chrono>
+#include <chrono>
 
 //header file
 #include "QuickSelect2.hpp"
@@ -25,14 +25,14 @@ Then rewrite the recursive portion so that quickselect calls itself on one or bo
 there are positions you're searching for on both sides or only one.
 */
 
-//constructor
-QuickSelect2::QuickSelect2(){
-    // min = 0;
-    // p25 = 0;
-    // median = 0;
-    // p75 = 0;
-    // max = 0;
-}
+// //constructor
+// QuickSelect2::QuickSelect2(){
+//     // min = 0;
+//     // p25 = 0;
+//     // median = 0;
+//     // p75 = 0;
+//     // max = 0;
+// }
 
 //helper functions
 void insertionSort2(std::vector<int>& data){
@@ -47,108 +47,127 @@ void insertionSort2(std::vector<int>& data){
         data[j + 1] = key;
     }
 }
+/* function not used
+int median3_2(std::vector<int>& data, int left, int right){
+    int mid = left + (right - left) / 2;
 
+    if (data[left] > data[mid]){
+        std::swap(data[left], data[mid]);
+    }
+    if (data[left] > data[right]){
+        std::swap(data[left], data[right]);
+    }
+    if (data[mid] > data[right]){
+        std::swap(data[mid], data[right]);
+    }
+
+    std::swap(data[mid], data[right - 1]);
+    return right - 1;
+} */
+
+//function returns pivot index of value half way between left and right and partitions data to left and right of pivot
 int partition2(std::vector<int>& data, int left, int right){
-    //value at the pivot, kth smallest value
-    int pivotValue = data[right];
+    //pivot
+    int pivot = (left + right) / 2;
+    //pivotValue
+    int pivotValue = data[pivot];
+    //move pivot to end
+    std::swap(data[pivot], data[right]);
     //starting point, index value, not data value
-    int i = left;
+    int pivotIndex = left;
     for (int j = left; j < right; j++){
         //if data[j] is smaller than pivot value, swap value at front starting point with value at back starting point
-        if (data[j] < pivotValue) {
-            //i     p       j
-            //1 2 3 4 5 6 7 8
-            std::swap(data[j], data[i]);
-            i++;
+        if (data[j] < pivotValue){
+            std::swap(data[j], data[pivotIndex]);
+            pivotIndex++;
         }
     }
     
     //desired value for pivot point
-    std::swap(data[i], data[right]);
-    return i;
+    std::swap(data[pivotIndex], data[right]);
+    return pivotIndex;
 }
 
+//quickselect function returns values at key indices, which are passed by keys vector
 std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys){
-    std::vector<int> result;
-    //for each value matched with its appropritate key, add to map and return
-    if (left - right + 1 <= 20){
-        insertionSort2(data);
+    if (right - left > 20){
+        //getting pivot index
+        int pivotIndex = partition2(data, left, right);
+        
+        std::vector<int> leftKeys, rightKeys;
+        //pushing keys into respective vectors to be recusively called depending on relative position to pivot
         for (int key : keys) {
-            if (key >= left && key <= right) {
-                result.push_back(data[key]);
+            if (key < pivotIndex) {
+                //if less than pivot, push to leftKeys, recurse on the left
+                leftKeys.push_back(key);
+            } else if (key > pivotIndex) {
+                //if more than pivot, push to rightKeys, recurse on the right
+                rightKeys.push_back(key);
             }
         }
-        return result;
-    }
-
-    //pivot made calling parition
-    int pivot = partition2(data, left, right);
-
-    //vector to store keys and values left of pivot, and right of pivot
-    std::vector<int> leftResult, rightResult;
-    std::vector<int> leftKeys, rightKeys;
-
-    //checking which side of pivot key is on
-    for (int key : keys){
-        if (key < pivot){
-            leftKeys.push_back(key);
-        } else if (key > pivot){
-            rightKeys.push_back(key);
-        } else {
-            result.push_back(data[key]);
+        
+        std::vector<int> resultValues;
+        //if leftKeys is not empty, recurse on left side
+        if (!leftKeys.empty()) {
+            std::vector<int> leftResult = quickSelect(data, left, pivotIndex - 1, leftKeys);
+            //inserting values from leftResult into resultValues, values for the keys left of pivot
+            resultValues.insert(resultValues.end(), leftResult.begin(), leftResult.end());
         }
+        
+        resultValues.push_back(data[pivotIndex]);
+        //if rightKeys is not empty, recurse on right side
+        if (!rightKeys.empty()) {
+            std::vector<int> rightResult = quickSelect(data, pivotIndex + 1, right, rightKeys);
+            //inserting values from rightResult into resultValues, values for the keys right of pivot
+            resultValues.insert(resultValues.end(), rightResult.begin(), rightResult.end());
+        }
+        
+        return resultValues;
+    } else {
+        //use insertion sort for small subarrays <= 20 items
+        std::vector<int> subarray(data.begin() + left, data.begin() + right + 1);
+        insertionSort2(subarray);
+        std::vector<int> resultValues;
+        for (int key : keys) {
+            resultValues.push_back(subarray[key]);
+        }
+        return resultValues;
     }
-
-    //checking if recursive call needs to be made on both sides of pivot
-    if (!leftKeys.empty() && !rightKeys.empty()){
-        leftResult = quickSelect(data, left, pivot - 1, leftKeys);
-        rightResult = quickSelect(data, pivot + 1, right, rightKeys);
-    } else if (!leftKeys.empty()){
-        //recursive call for left side of pivot
-        leftResult = quickSelect(data, left, pivot - 1, leftKeys);
-    } else if (!rightKeys.empty()){
-        //recursive call for right side of pivot
-        rightResult = quickSelect(data, pivot + 1, right, rightKeys);
-    }
-
-    //moving value from left result to return map
-    result.insert(result.end(), leftResult.begin(), leftResult.end());
-    //moving value from right result to return map
-    result.insert(result.end(), rightResult.begin(), rightResult.end());
-
-    return result;
 }
 
 //sorting function
-void QuickSelect2::quickSelect2(const std::string& header, std::vector<int> data){
+void quickSelect2(const std::string& header, std::vector<int> data){
     // //starting timer
     // auto start3 = std::chrono::high_resolution_clock::now();
 
     //median index, smaller of the two if even input
-    int medianIndex = (data.size() % 2 == 0) ? (data.size() / 2) - 1 : data.size() / 2;
+    int medianIndex = data.size() / 2;
 
     //second quickSelect for p25
-    int p25_index = (medianIndex % 2 == 0) ? (medianIndex / 2) - 1 : medianIndex / 2;
+    int p25_index = medianIndex / 2;
 
     //third quickSelect for p75
-    int p75_index = (medianIndex % 2 == 0) ? (medianIndex + ((data.size() - medianIndex)/2)) - 1 : medianIndex + ((data.size() - medianIndex)/2);
+    int p75_index = medianIndex + (data.size() - medianIndex) / 2;
 
     //storing min at position 0, p25 at position 1, median at position 2, p75 at position 3, max at position 4
-    std::vector<int> keys{0, p25_index, medianIndex, p75_index, static_cast<int>(data.size() - 1)};
+    int minIndex = 0;
+    int maxIndex = data.size() - 1;
+
+    std::vector<int> keys{minIndex, p25_index, medianIndex, p75_index, maxIndex};
 
     //calling quickselect
-    std::vector<int> result = quickSelect(data, 0, data.size() - 1, keys);
+    std::vector<int> resultValues = quickSelect(data, 0, data.size() - 1, keys);
     
     // //ending timer
     // auto end3 = std::chrono::high_resolution_clock::now();
     // std::chrono::duration<double> duration3 = end3 - start3;
-    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n\n";
+    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
-    std::cout << "Min: " << result[0] << std::endl;
-    std::cout << "P25: " << result[1] << std::endl;
-    std::cout << "P50: " << result[2] << std::endl;
-    std::cout << "P75: " << result[3] << std::endl;
-    std::cout << "Max: " << result[4] << std::endl;
+    std::cout << "Min: " << resultValues[0] << std::endl;
+    std::cout << "P25: " << resultValues[1] << std::endl;
+    std::cout << "P50: " << resultValues[2] << std::endl;
+    std::cout << "P75: " << resultValues[3] << std::endl;
+    std::cout << "Max: " << resultValues[4] << std::endl;
 }

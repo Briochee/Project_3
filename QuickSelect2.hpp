@@ -22,22 +22,25 @@ Then rewrite the recursive portion so that quickselect calls itself on one or bo
 there are positions you're searching for on both sides or only one.
 */
 
-class QuickSelect2{
-    public:
-        //constructor
-        QuickSelect2();
+//commented out class implementation
+// class QuickSelect2{
+//     public:
+//         //constructor
+//         QuickSelect2();
 
-        //QuickSelect2.cpp, containing the function void quickSelect2(const std::string & header, std::vector<int> data)
-        void quickSelect2(const std::string& header, std::vector<int> data);
-        //helper functions -- made non member so gradescope could see
-        // std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys);
-        // int partition(std::vector<int>& data, int left, int right);
-        // void insertionSort(std::vector<int>& data);
+//helper functions -- made non member so gradescope could see
+void insertionSort2(std::vector<int>& arr, int low, int high);
+int partition2(std::vector<int>& data, int left, int right);
+std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys);
+// int median3_2(std::vector<int>& data, int left, int right);
 
-    private:
-        //not needed for quickselect 2 since indexes are stored in vector
-        //variables to hold min, p25, median, p75, and max
-        //int min, p25, median, p75, max;
-};
+//QuickSelect2.cpp, containing the function void quickSelect2(const std::string & header, std::vector<int> data)
+void quickSelect2(const std::string& header, std::vector<int> data);
+
+//     private:
+//         //not needed for quickselect 2 since indexes are stored in vector
+//         //variables to hold min, p25, median, p75, and max
+//         //int min, p25, median, p75, max;
+// };
 
 #endif
