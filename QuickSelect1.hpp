@@ -21,24 +21,16 @@ For method 2, find the median first. Then, on the same vector that's already par
 find P25 and on the right half to find P75. Then, search the part of the vector below P25 for the min and above P75 for the max.
 */
 
-//commented out class implementation
-// class QuickSelect1 {
-//     public:
-//         //constructor
-//         QuickSelect1();
 
-//helper functions -- made non member so gradescope could see
+//helper functions
+//sorts data using insertion sort of size <= 20
 void insertionSort(std::vector<int>& data);
+//partitions using halfway point between left and right input
 int partition(std::vector<int>& data, int left, int right);
+//recursive quickselect function that returns the index of the value belonging to the desired key
 int quickSelect(std::vector<int>& data, int left, int right, int key);
-// int median3_1(std::vector<int>& data, int left, int right);
 
 //QuickSelect1.cpp, containing the function void quickSelect1(const std::string & header, std::vector<int> data)
 void quickSelect1(const std::string& header, std::vector<int> data);
-
-//     private:
-//         //variables to hold min, p25, median, p75, and max
-//         int min, p25, median, p75, max;
-// };
 
 #endif

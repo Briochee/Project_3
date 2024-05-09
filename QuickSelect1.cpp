@@ -22,16 +22,8 @@ For method 2, find the median first. Then, on the same vector that's already par
 find P25 and on the right half to find P75. Then, search the part of the vector beleft P25 for the min and above P75 for the max.
 */
 
-// //constructor
-// QuickSelect1::QuickSelect1(){
-//     this->min = 0;
-//     this->p25 = 0;
-//     this->median = 0;
-//     this->p75 = 0;
-//     this->max = 0;
-// }
-
 //helper functions
+//sorts data using insertion sort of size <= 20, passed by reference
 void insertionSort(std::vector<int>& data){
     for (int i = 1; i < data.size(); i++){
         int key = data[i];
@@ -45,24 +37,7 @@ void insertionSort(std::vector<int>& data){
     }
 }
 
-/* function not used
-int median3_1(std::vector<int>& data, int left, int right){
-    int mid = left + (right - left) / 2;
-
-    if (data[left] > data[mid]){
-        std::swap(data[left], data[mid]);
-    }
-    if (data[left] > data[right]){
-        std::swap(data[left], data[right]);
-    }
-    if (data[mid] > data[right]){
-        std::swap(data[mid], data[right]);
-    }
-
-    std::swap(data[mid], data[right - 1]);
-    return right - 1;
-} */
-
+//partitions using halfway point between left and right input
 int partition(std::vector<int>& data, int left, int right){
     int pivot = (left + right) / 2;
     //pivotValue
@@ -86,6 +61,7 @@ int partition(std::vector<int>& data, int left, int right){
     return pivotIndex;
 }
 
+//recursive quickselect function that returns the index of the value belonging to the desired key
 int quickSelect(std::vector<int>& data, int left, int right, int key){
     //if the size is 20 or less, use std::sort and return the value at the key index
     if (right - left > 20){
@@ -107,11 +83,11 @@ int quickSelect(std::vector<int>& data, int left, int right, int key){
 
 //sorting function
 void quickSelect1(const std::string& header, std::vector<int> data){
-    //variables to hold min, p25, median, p75, and max
-    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
-
     // //starting timer
     // auto start2 = std::chrono::high_resolution_clock::now();
+
+    //variables to hold min, p25, median, p75, and max
+    int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
 
     //median index, smaller of the two if even input
     int medianIndex = data.size() / 2;
