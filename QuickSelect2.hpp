@@ -22,25 +22,16 @@ Then rewrite the recursive portion so that quickselect calls itself on one or bo
 there are positions you're searching for on both sides or only one.
 */
 
-//commented out class implementation
-// class QuickSelect2{
-//     public:
-//         //constructor
-//         QuickSelect2();
-
 //helper functions -- made non member so gradescope could see
+//sorts data using insertion sort of size <= 20
 void insertionSort2(std::vector<int>& arr, int low, int high);
+//function returns pivot index of value half way between left and right and partitions data to left and right of pivot
 int partition2(std::vector<int>& data, int left, int right);
-std::vector<int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys);
-// int median3_2(std::vector<int>& data, int left, int right);
+//returns vector of values belonging to the desired keys
+std::unordered_map<int, int> quickSelect(std::vector<int>& data, int left, int right, std::vector<int> keys);
 
 //QuickSelect2.cpp, containing the function void quickSelect2(const std::string & header, std::vector<int> data)
 void quickSelect2(const std::string& header, std::vector<int> data);
 
-//     private:
-//         //not needed for quickselect 2 since indexes are stored in vector
-//         //variables to hold min, p25, median, p75, and max
-//         //int min, p25, median, p75, max;
-// };
 
 #endif
