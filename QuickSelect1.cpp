@@ -83,8 +83,8 @@ int quickSelect(std::vector<int>& data, int left, int right, int key){
 
 //sorting function
 void quickSelect1(const std::string& header, std::vector<int> data){
-    // //starting timer
-    // auto start2 = std::chrono::high_resolution_clock::now();
+    //starting timer
+    auto start2 = std::chrono::high_resolution_clock::now();
 
     //variables to hold min, p25, median, p75, and max
     int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
@@ -123,10 +123,10 @@ void quickSelect1(const std::string& header, std::vector<int> data){
     // min = quickSelect(data, 0, p25_index, 0);
     // max = quickSelect(data, p75_index, data.size() - 1, data.size() - 1);
 
-    // //ending timer
-    // auto end2 = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> duration2 = end2 - start2;
-    // std::cout << "QuickSelect1 Completed in: " << duration2.count() * 1000 << " milliseconds\n";
+    //ending timer
+    auto end2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration2 = end2 - start2;
+    std::cout << "QuickSelect1 Completed in: " << duration2.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;

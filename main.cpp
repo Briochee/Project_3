@@ -18,7 +18,7 @@
 
 int main(){
     //extracting data from text flile
-    std::ifstream input_data("inputs/test_input.txt");
+    std::ifstream input_data("inputs/test_input_10M_1-100.txt");
     // std::ifstream input_data("inputs/test_input2.txt");
     // std::ifstream input_data("inputs/test_input3.txt");
 

@@ -19,8 +19,8 @@ and to give you a baseline to time your other algorithms against.
 
 //sorting function
 void stdSort(const std::string& header, std::vector<int> data){
-    // //starting timer
-    // auto start1 = std::chrono::high_resolution_clock::now();
+    //starting timer
+    auto start1 = std::chrono::high_resolution_clock::now();
 
     //variables to hold min, p25, median, p75, and max
     int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
@@ -49,10 +49,10 @@ void stdSort(const std::string& header, std::vector<int> data){
     min = data[0];
     max = data[data.size() - 1];
 
-    // //ending timer
-    // auto end1 = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> duration1 = end1 - start1;
-    // std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n";
+    //ending timer
+    auto end1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration1 = end1 - start1;
+    std::cout << "StdSort Completed in: " << duration1.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;

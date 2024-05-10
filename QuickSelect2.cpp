@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <chrono>
+#include <unordered_map>
 
 //header file
 #include "QuickSelect2.hpp"
@@ -39,20 +40,6 @@ void insertionSort2(std::vector<int>& data){
         data[j + 1] = key;
     }
 }
-
-/* function not used
-//helper function to find median of three values
-int median3(std::vector<int>& data, int left, int right){
-    int mid = (left + right) / 2;
-    if (data[left] > data[mid])
-        std::swap(data[left], data[mid]);
-    if (data[left] > data[right])
-        std::swap(data[left], data[right]);
-    if (data[mid] > data[right])
-        std::swap(data[mid], data[right]);
-    return mid;
-}
-*/
 
 //function returns pivot index of value half way between left and right and partitions data to left and right of pivot
 int partition2(std::vector<int>& data, int left, int right){
@@ -132,8 +119,8 @@ std::unordered_map<int, int> quickSelect(std::vector<int>& data, int left, int r
 
 //sorting function
 void quickSelect2(const std::string& header, std::vector<int> data){
-    // //starting timer
-    // auto start3 = std::chrono::high_resolution_clock::now();
+    //starting timer
+    auto start3 = std::chrono::high_resolution_clock::now();
 
     //median index, smaller of the two if even input
     int medianIndex = data.size() / 2;
@@ -153,10 +140,10 @@ void quickSelect2(const std::string& header, std::vector<int> data){
     //calling quickselect
     std::unordered_map<int, int> resultValues = quickSelect(data, 0, data.size() - 1, keys);
     
-    // //ending timer
-    // auto end3 = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> duration3 = end3 - start3;
-    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n";
+    //ending timer
+    auto end3 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration3 = end3 - start3;
+    std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
