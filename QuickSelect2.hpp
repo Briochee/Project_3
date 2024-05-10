@@ -7,6 +7,10 @@
 //Libraries
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <iostream>
+#include <chrono>
+#include <unordered_map>
 
 /* Project Specifications
 For method 3, replace the key k in your quickSelect's parameters with a set of keys you're looking for 
