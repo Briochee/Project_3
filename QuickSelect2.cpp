@@ -119,8 +119,8 @@ std::unordered_map<int, int> quickSelect(std::vector<int>& data, int left, int r
 
 //sorting function
 void quickSelect2(const std::string& header, std::vector<int> data){
-    //starting timer
-    auto start3 = std::chrono::high_resolution_clock::now();
+    // //starting timer
+    // auto start3 = std::chrono::high_resolution_clock::now();
 
     //median index, smaller of the two if even input
     int medianIndex = data.size() / 2;
@@ -140,10 +140,10 @@ void quickSelect2(const std::string& header, std::vector<int> data){
     //calling quickselect
     std::unordered_map<int, int> resultValues = quickSelect(data, 0, data.size() - 1, keys);
     
-    //ending timer
-    auto end3 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration3 = end3 - start3;
-    std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n";
+    // //ending timer
+    // auto end3 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration3 = end3 - start3;
+    // std::cout << "QuickSelect2 Completed in: " << duration3.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;

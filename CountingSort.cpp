@@ -33,8 +33,8 @@ be self-explanatory.
 //sorting function
 //function takes string and data vector, creates map, finds 5-summary values
 void countingSort(const std::string& header, std::vector<int> data){
-    //starting timer
-    auto start4 = std::chrono::high_resolution_clock::now();
+    // //starting timer
+    // auto start4 = std::chrono::high_resolution_clock::now();
 
     //variables to hold min, p25, median, p75, and max
     int min = 0, p25 = 0, median = 0, p75 = 0, max = 0;
@@ -91,10 +91,10 @@ void countingSort(const std::string& header, std::vector<int> data){
     //NOTE TO GRADER: unique values should be the number of elements that only occur once, not the number of elements as some occur multiple times (thus not being unique)
     unique = inital.size();
 
-    //ending timer
-    auto end4 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration4 = end4 - start4;
-    std::cout << "CountingSort Completed in: " << duration4.count() * 1000 << " milliseconds\n";
+    // //ending timer
+    // auto end4 = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration4 = end4 - start4;
+    // std::cout << "CountingSort Completed in: " << duration4.count() * 1000 << " milliseconds\n";
 
     //printiing out data as specified by project specifications
     std::cout << header << std::endl;
